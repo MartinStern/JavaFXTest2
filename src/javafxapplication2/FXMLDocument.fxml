@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafxapplication2.FXMLDocumentController">
+    <children>
+      <VBox prefHeight="300.0" prefWidth="500.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <MenuBar layoutY="2.0" prefHeight="25.0" prefWidth="500.0" AnchorPane.bottomAnchor="275.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+              <menus>
+                <Menu mnemonicParsing="false" text="File">
+                  <items>
+                    <MenuItem id="MenuClose" fx:id="exit" mnemonicParsing="false" onAction="#handleMenuAction" text="Close" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Edit">
+                  <items>
+                    <MenuItem id="MenuDelete" mnemonicParsing="false" onAction="#handleMenuAction" text="Delete" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                  <items>
+                    <MenuItem id="MenuAbout" mnemonicParsing="false" onAction="#handleMenuAction" text="About" />
+                  </items>
+                </Menu>
+                  <Menu mnemonicParsing="false" text="I have no idea">
+                    <items>
+                      <MenuItem id="MenuSimpleSample" disable="true" mnemonicParsing="false" onAction="#handleMenuAction" text="simple Sample" />
+                    </items>
+                  </Menu>
+              </menus>
+            </MenuBar>
+            <SplitPane dividerPositions="0.29797979797979796" focusTraversable="true" prefHeight="624.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
+              <items>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                     <children>
+                        <Label fx:id="label2" layoutX="14.0" layoutY="26.0" prefHeight="547.0" prefWidth="232.0" text="here we go ...." wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                     </children></AnchorPane>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="608.0" prefWidth="554.0">
+                     <children>
+                        <VBox layoutX="30.0" layoutY="27.0" spacing="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                                <Button fx:id="button" layoutX="30.0" layoutY="27.0" onAction="#handleButtonAction" text="Click Me!" />
+                              <TextField fx:id="inputField" maxWidth="1.7976931348623157E308" onInputMethodTextChanged="#handleInputChangedAction" onKeyReleased="#handleKeyAction" prefHeight="25.0" prefWidth="306.0" promptText="please give me some info ....">
+                                 <tooltip>
+                                    <Tooltip text="bla bla bla" />
+                                 </tooltip></TextField>
+                                <Label fx:id="label" maxWidth="1.7976931348623157E308" prefHeight="35.0" prefWidth="636.0" text="here comes the truth ..." />
+                              <ComboBox maxWidth="1.7976931348623157E308" prefHeight="25.0" prefWidth="306.0" />
+                              <ChoiceBox maxWidth="1.7976931348623157E308" prefWidth="150.0" />
+                           </children>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+              </items>
+            </SplitPane>
+         </children>
+      </VBox>
+    </children>
+</AnchorPane>
