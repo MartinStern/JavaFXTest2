@@ -11,10 +11,14 @@ import javafx.application.ConditionalFeature;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
@@ -36,6 +40,10 @@ public class FXMLDocumentController implements Initializable {
     private Label label2;
     @FXML
     MenuItem exit;
+    @FXML
+    ComboBox cboNames;
+    @FXML
+    ChoiceBox choiceNames;
 
     @FXML
     private void handleButtonAction(ActionEvent event) {
@@ -51,24 +59,27 @@ public class FXMLDocumentController implements Initializable {
             System.err.println("Error: Wrong Event in handleMenuAction");
             return;
         }
+
         MenuItem mi = (MenuItem) event.getSource();
         String nemuId = mi.getId();
-        if (exit == mi) {
-            System.out.println("yep is exit");
-            System.out.println("bye bye");
-            Platform.exit();
-        }
-
         System.out.println("Menu '" + nemuId + "' clicked");
         label.setText("Menu '" + nemuId + "' clicked");
         switch (nemuId) {
             case "MenuClose":
                 System.out.println("bye bye");
-                Platform.exit();
+                JavaFXApplication2.closeProgram();
                 break;
             default:
                 System.out.println("unkknown menu clicked");
         }
+
+// alternative Variante ...
+//        if (exit == mi) {
+//            System.out.println("yep is exit");
+//            System.out.println("bye bye");
+//            JavaFXApplication2.closeProgram();
+//        }
+    
     }
 
     @FXML
@@ -98,6 +109,36 @@ public class FXMLDocumentController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
+        cboNames.getItems().addAll(
+                "Item one",
+                "Item two",
+                "Item three",
+                "Item four"
+        );
+
+        class Choice {
+
+            int key;
+            String name;
+
+            Choice(int key, String name) {
+                this.key = key;
+                this.name = name;
+            }
+
+            @Override
+            public String toString() {
+                return name;
+            }
+        }
+        ObservableList<Choice> ol = FXCollections.observableArrayList();
+        ol.add(new Choice(1, "aaaaa"));
+        ol.add(new Choice(2, "bb"));
+        ol.add(new Choice(3, "-"));
+        ol.add(new Choice(4, "zzzzz"));
+        choiceNames.setItems(ol);
+
         // Achtung: bei der Auswahl eines Menus wird der Listener nicht angesprochen! Fokus bleibt im Eingabefeld!
         inputField.focusedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
