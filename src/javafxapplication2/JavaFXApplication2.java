@@ -31,7 +31,7 @@ public class JavaFXApplication2 extends Application {
 
         Scene scene = new Scene(root);
         window.setOnCloseRequest(e -> {
-            e.consume();
+            e.consume();    // mit "consume" wird der event "aufgebraucht", das heisst, der Close wird nicht mehr "per se" ausgefuehrt, sondern kann in der Methode dann situativ erfolgen
             closeProgram();
         }
         );

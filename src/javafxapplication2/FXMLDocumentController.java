@@ -9,6 +9,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.application.ConditionalFeature;
 import javafx.application.Platform;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -25,7 +27,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.InputEvent;
 import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.KeyEvent;
-
+import javafx.beans.property.StringProperty;
 /**
  *
  * @author Martin
@@ -37,14 +39,19 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private TextField inputField;
     @FXML
+    private TextField inputField2;
+    @FXML
     private Label label2;
     @FXML
-    MenuItem exit;
+    private MenuItem exit;
     @FXML
-    ComboBox cboNames;
+    private ComboBox cboNames;
     @FXML
-    ChoiceBox choiceNames;
+    private ChoiceBox choiceNames;
 
+    
+    private TestWithProperty testWithProperty = new TestWithProperty("bla");
+    
     @FXML
     private void handleButtonAction(ActionEvent event) {
         System.out.println("You clicked me!");
@@ -79,7 +86,6 @@ public class FXMLDocumentController implements Initializable {
 //            System.out.println("bye bye");
 //            JavaFXApplication2.closeProgram();
 //        }
-    
     }
 
     @FXML
@@ -92,7 +98,7 @@ public class FXMLDocumentController implements Initializable {
         TextField tf = (TextField) event.getSource();
         System.out.println("Text in '" + tf.getId() + "' entered: " + tf.getText());
         label.setText("Text in '" + tf.getId() + "' entered: " + tf.getText());
-        label2.setText("Text in '" + tf.getId() + "' entered: " + tf.getText());
+        //label2.setText("Text in '" + tf.getId() + "' entered: " + tf.getText());  das machen wir mit binding!
     }
 
     @FXML
@@ -132,6 +138,7 @@ public class FXMLDocumentController implements Initializable {
                 return name;
             }
         }
+        
         ObservableList<Choice> ol = FXCollections.observableArrayList();
         ol.add(new Choice(1, "aaaaa"));
         ol.add(new Choice(2, "bb"));
@@ -139,6 +146,14 @@ public class FXMLDocumentController implements Initializable {
         ol.add(new Choice(4, "zzzzz"));
         choiceNames.setItems(ol);
 
+//        testWithProperty = new TestWithProperty("bla");
+        
+        
+        label2.textProperty().bind(inputField.textProperty());
+        inputField.textProperty().bindBidirectional(inputField2.textProperty());
+        testWithProperty.testFieldProperty().bindBidirectional(inputField.textProperty());
+        testWithProperty.setTestField("i woas ned");
+        
         // Achtung: bei der Auswahl eines Menus wird der Listener nicht angesprochen! Fokus bleibt im Eingabefeld!
         inputField.focusedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
@@ -154,10 +169,19 @@ public class FXMLDocumentController implements Initializable {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String oldValue, String newValue) {
                 System.out.println("old value: " + oldValue + ", new value: " + newValue);
-                if (newValue == null) {
-                    return;
-                }
+            }
+        });
 
+//        inputField.textProperty().addListener((observable, oldValue, newValue) -> {
+//                System.out.println("old value: " + oldValue + ", new value: " + newValue);
+//            
+//        });
+
+        inputField.textProperty().addListener(new InvalidationListener() {
+
+            @Override
+            public void invalidated(Observable observable) {
+                System.out.println("invalidated?");
             }
         });
 
